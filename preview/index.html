@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astra Attendance - UI Preview</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            background: #f8fafc;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #475569 0%, #06b6d4 100%);
+            color: white;
+            border-radius: 12px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .page-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .page-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .page-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+        .page-description {
+            color: #475569;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        .page-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #06b6d4;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .page-link:hover {
+            background: #0891b2;
+        }
+        .info-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .info-content {
+            color: #475569;
+            line-height: 1.8;
+        }
+        .info-content ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+        }
+        .info-content li {
+            margin-bottom: 0.5rem;
+        }
+        .note {
+            background: #fef3c7;
+            border-left: 4px solid #fbbf24;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .note strong {
+            color: #92400e;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Astra Attendance</h1>
+            <p class="subtitle">UI Preview - Static HTML Mockups</p>
+        </header>
+        
+        <div class="info-section">
+            <h2 class="info-title">📱 About This Preview</h2>
+            <div class="info-content">
+                <p>This is a static HTML preview of the Astra Attendance application UI. These pages demonstrate the design and layout of the actual React application.</p>
+                <div class="note">
+                    <strong>Note:</strong> These are non-functional mockups. The actual application is built with React + TypeScript + Vite and requires a running dev server and Supabase backend.
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="info-title" style="margin-bottom: 1.5rem;">🎨 Page Previews</h2>
+        <div class="pages-grid">
+            <div class="page-card">
+                <h3 class="page-title">1. Choose Login</h3>
+                <p class="page-description">Landing page with two login options: Employee and Admin</p>
+                <a href="choose-login.html" class="page-link">View Preview →</a>
+            </div>
+            
+            <div class="page-card">
+                <h3 class="page-title">2. Employee Login</h3>
+                <p class="page-description">Mobile-first login page for employees with cyan accent</p>
+                <a href="employee-login.html" class="page-link">View Preview →</a>
+            </div>
+            
+            <div class="page-card">
+                <h3 class="page-title">3. Admin Login</h3>
+                <p class="page-description">Admin login with prominent warning banner</p>
+                <a href="admin-login.html" class="page-link">View Preview →</a>
+            </div>
+            
+            <div class="page-card">
+                <h3 class="page-title">4. Onboarding</h3>
+                <p class="page-description">Profile completion form with validation (4 fields)</p>
+                <a href="onboarding.html" class="page-link">View Preview →</a>
+            </div>
+            
+            <div class="page-card">
+                <h3 class="page-title">5. Dashboard</h3>
+                <p class="page-description">Employee dashboard with punch button</p>
+                <a href="dashboard.html" class="page-link">View Preview →</a>
+            </div>
+            
+            <div class="page-card">
+                <h3 class="page-title">6. Admin Test Center</h3>
+                <p class="page-description">Admin panel with automated checks and fixes</p>
+                <a href="admin-test-center.html" class="page-link">View Preview →</a>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2 class="info-title">🚀 Running the Real Application</h2>
+            <div class="info-content">
+                <p>To run the actual application with full functionality:</p>
+                <ul>
+                    <li>Navigate to the repository directory</li>
+                    <li>Run <code>npm ci</code> to install dependencies</li>
+                    <li>Create <code>.env</code> file with Supabase credentials</li>
+                    <li>Apply database migrations</li>
+                    <li>Run <code>npm run dev</code> to start the dev server</li>
+                    <li>Open <code>http://localhost:5173</code> in your browser</li>
+                </ul>
+                <p style="margin-top: 1rem;">See <code>VERIFICATION_GUIDE.md</code> for detailed step-by-step instructions.</p>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2 class="info-title">📋 Key Features</h2>
+            <div class="info-content">
+                <ul>
+                    <li><strong>Dual Login:</strong> Separate experiences for employees and admins</li>
+                    <li><strong>Single Auth:</strong> Unified Supabase authentication system</li>
+                    <li><strong>Onboarding:</strong> Required profile completion for new users</li>
+                    <li><strong>Role-based Routing:</strong> Automatic routing based on user role</li>
+                    <li><strong>Shift Management:</strong> Day and overnight shift support</li>
+                    <li><strong>Admin Tools:</strong> Automated system checks and safe auto-fixes</li>
+                    <li><strong>Mobile-First:</strong> Responsive design optimized for mobile devices</li>
+                    <li><strong>Security:</strong> Row Level Security (RLS) on all tables</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2 class="info-title">🎨 Design System</h2>
+            <div class="info-content">
+                <p><strong>Colors:</strong></p>
+                <ul>
+                    <li>Primary: Cyan (#06b6d4) - Employee actions</li>
+                    <li>Secondary: Slate Blue (#475569) - Backgrounds</li>
+                    <li>Dark: Slate Dark (#1e293b) - Admin UI</li>
+                    <li>Warning: Gold (#fbbf24) - Admin warnings</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>Typography:</strong> System UI font stack</p>
+                <p><strong>Mobile-First:</strong> Optimized for 375px+ screens</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

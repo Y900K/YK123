@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Test Center - Astra Attendance Preview</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: #1e293b;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+        .warning-banner {
+            background: #fef3c7;
+            border: 2px solid #fbbf24;
+            padding: 1rem;
+            text-align: center;
+            color: #92400e;
+            font-weight: 500;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .header-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+        .subtitle {
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+        .run-button {
+            padding: 1rem 2rem;
+            background: #06b6d4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .run-button:hover {
+            background: #0891b2;
+        }
+        .results-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .results-card.show {
+            display: block;
+        }
+        .results-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        .check-results {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .check-item {
+            padding: 1rem;
+            border: 2px solid;
+            border-radius: 8px;
+        }
+        .check-item.pass {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+        .check-item.fixed {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+        .check-item.fail {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        .check-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .check-icon {
+            font-size: 1.5rem;
+        }
+        .check-name {
+            font-weight: bold;
+            color: #1e293b;
+            flex: 1;
+        }
+        .check-badge {
+            padding: 0.25rem 0.5rem;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        .check-badge.pass {
+            background: #10b981;
+        }
+        .check-badge.fixed {
+            background: #f59e0b;
+        }
+        .check-badge.fail {
+            background: #ef4444;
+        }
+        .check-message {
+            color: #475569;
+            font-size: 0.875rem;
+        }
+        .signout-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: white;
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 2rem;
+        }
+        .preview-label {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e293b;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-label">📱 PREVIEW MODE</div>
+    <div class="warning-banner">
+        ⚠️ Admin Access - Use with caution
+    </div>
+    <div class="container">
+        <div class="header-card">
+            <h1>Admin Test Center</h1>
+            <p class="subtitle">Run system checks and apply safe auto-fixes</p>
+            <button class="run-button" onclick="runChecks()">
+                Run All Checks
+            </button>
+        </div>
+        
+        <div class="results-card" id="results">
+            <h2 class="results-title">Check Results (Run #1)</h2>
+            <div class="check-results">
+                <div class="check-item pass">
+                    <div class="check-header">
+                        <span class="check-icon">✅</span>
+                        <span class="check-name">Null onboarding flags</span>
+                        <span class="check-badge pass">PASS</span>
+                    </div>
+                    <p class="check-message">All employees have valid onboarding_completed flag</p>
+                </div>
+                
+                <div class="check-item pass">
+                    <div class="check-header">
+                        <span class="check-icon">✅</span>
+                        <span class="check-name">Default shifts</span>
+                        <span class="check-badge pass">PASS</span>
+                    </div>
+                    <p class="check-message">Found 2 shift(s)</p>
+                </div>
+                
+                <div class="check-item pass">
+                    <div class="check-header">
+                        <span class="check-icon">✅</span>
+                        <span class="check-name">General department</span>
+                        <span class="check-badge pass">PASS</span>
+                    </div>
+                    <p class="check-message">General department exists</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="signout-button">
+            Sign Out
+        </button>
+    </div>
+    
+    <script>
+        function runChecks() {
+            const results = document.getElementById('results');
+            results.classList.add('show');
+            results.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

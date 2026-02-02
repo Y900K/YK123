@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Astra Attendance Preview</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: #1e293b;
+            background: linear-gradient(135deg, #475569 0%, #06b6d4 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .welcome-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+        .employee-code {
+            color: #475569;
+            font-size: 0.875rem;
+        }
+        .punch-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+        .punch-button {
+            width: 100%;
+            padding: 2rem;
+            background: #06b6d4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .punch-button:hover {
+            background: #0891b2;
+        }
+        .message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            display: none;
+        }
+        .message.show {
+            display: block;
+        }
+        .signout-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: white;
+            color: #1e293b;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .signout-button:hover {
+            background: #f8fafc;
+        }
+        .preview-label {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-label">📱 PREVIEW MODE</div>
+    <div class="container">
+        <div class="welcome-card">
+            <h1>Welcome, John Doe</h1>
+            <p class="employee-code">Employee Code: EMP001</p>
+        </div>
+        
+        <div class="punch-card">
+            <button class="punch-button" onclick="showMessage()">
+                PUNCH IN/OUT
+            </button>
+            <div class="message" id="message">
+                Punch recorded at 10:30:15 AM for attendance date 2026-02-02
+            </div>
+        </div>
+        
+        <button class="signout-button">
+            Sign Out
+        </button>
+    </div>
+    
+    <script>
+        function showMessage() {
+            const msg = document.getElementById('message');
+            const now = new Date();
+            const time = now.toLocaleTimeString();
+            const date = now.toISOString().split('T')[0];
+            msg.textContent = `Punch recorded at ${time} for attendance date ${date}`;
+            msg.classList.add('show');
+            setTimeout(() => {
+                msg.classList.remove('show');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
