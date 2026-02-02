@@ -1,0 +1,28 @@
+:root {
+  --slate-blue: #475569;
+  --cyan: #06b6d4;
+  --slate-light: #cbd5e1;
+  --slate-dark: #1e293b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  color: var(--slate-dark);
+  background: #f8fafc;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input, select {
+  font-family: inherit;
+}
