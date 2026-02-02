@@ -2,8 +2,6 @@
  * Core utility functions for Astra Attendance
  */
 
-import { supabase } from './supabase';
-
 /**
  * Compute the attendance date for a given punch timestamp.
  * Handles overnight shifts: punches between 21:00 and 05:30 belong to the attendance day
@@ -80,17 +78,11 @@ export function validateOnboardingForm(data: OnboardingFormData): ValidationResu
  */
 export interface DBClient {
   from(table: string): {
-    select(columns?: string): {
-      eq(column: string, value: any): Promise<{ data: any[] | null; error: any }>;
-      is(column: string, value: any): Promise<{ data: any[] | null; error: any }>;
-    };
-    insert(data: any): Promise<{ data: any; error: any }>;
-    update(data: any): {
-      eq(column: string, value: any): Promise<{ data: any; error: any }>;
-      is(column: string, value: any): Promise<{ data: any; error: any }>;
-    };
+    select(columns?: string): any;
+    insert(data: any): any;
+    update(data: any): any;
   };
-  rpc(fn: string, params?: any): Promise<{ data: any; error: any }>;
+  rpc(fn: string, params?: any): any;
 }
 
 export interface CheckResult {
@@ -110,11 +102,13 @@ export async function runAllChecks(
   const results: CheckResult[] = [];
 
   // Check 1: Employees with null onboarding_completed
-  const { data: employeesWithNullOnboarding } = await db
+  const employeesQuery = await db
     .from('employees')
     .select('id')
     .eq('org_id', orgId)
     .is('onboarding_completed', null);
+  
+  const employeesWithNullOnboarding = employeesQuery.data;
 
   if (employeesWithNullOnboarding && employeesWithNullOnboarding.length > 0) {
     if (applyFixes) {
@@ -145,10 +139,12 @@ export async function runAllChecks(
   }
 
   // Check 2: Default shifts exist
-  const { data: shifts } = await db
+  const shiftsQuery = await db
     .from('shifts')
     .select('id')
     .eq('org_id', orgId);
+  
+  const shifts = shiftsQuery.data;
 
   if (!shifts || shifts.length === 0) {
     if (applyFixes) {
@@ -175,11 +171,13 @@ export async function runAllChecks(
   }
 
   // Check 3: General department exists
-  const { data: generalDept } = await db
+  const departmentsQuery = await db
     .from('departments')
     .select('id')
     .eq('org_id', orgId)
     .eq('name', 'General');
+  
+  const generalDept = departmentsQuery.data;
 
   if (!generalDept || generalDept.length === 0) {
     if (applyFixes) {

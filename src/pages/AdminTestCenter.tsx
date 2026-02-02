@@ -44,7 +44,7 @@ export default function AdminTestCenter() {
 
     try {
       // Run checks with auto-fixes
-      const firstRunResults = await runAllChecks(supabase, employee.org_id, true);
+      await runAllChecks(supabase, employee.org_id, true);
       
       // Run checks again to verify
       const secondRunResults = await runAllChecks(supabase, employee.org_id, false);

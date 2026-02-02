@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { runAllChecks, DBClient, CheckResult } from '../lib/app-utils';
+import { runAllChecks, DBClient } from '../lib/app-utils';
 
 // Mock DB client for testing
 class MockDBClient implements DBClient {
@@ -27,21 +27,23 @@ class MockDBClient implements DBClient {
   from(table: string) {
     const self = this;
     return {
-      select(columns?: string) {
-        return {
+      select(_columns?: string) {
+        let currentData = self.mockData[table] || [];
+        const chainableQuery: any = {
           eq(column: string, value: any) {
-            const data = (self.mockData[table] || []).filter(
-              (row) => row[column] === value
-            );
-            return Promise.resolve({ data, error: null });
+            currentData = currentData.filter((row) => row[column] === value);
+            return chainableQuery; // Return self for chaining
           },
           is(column: string, value: any) {
-            const data = (self.mockData[table] || []).filter(
-              (row) => row[column] === value
-            );
-            return Promise.resolve({ data, error: null });
+            currentData = currentData.filter((row) => row[column] === value);
+            return chainableQuery; // Return self for chaining
+          },
+          then(resolve: any) {
+            // Make it thenable to work with await
+            resolve({ data: currentData, error: null });
           },
         };
+        return chainableQuery;
       },
       insert(data: any) {
         if (!self.mockInserts[table]) {
@@ -51,30 +53,46 @@ class MockDBClient implements DBClient {
         return Promise.resolve({ data, error: null });
       },
       update(data: any) {
-        return {
+        let updateColumn: string | null = null;
+        let updateValue: any = null;
+
+        const chainableUpdate: any = {
           eq(column: string, value: any) {
-            if (!self.mockUpdates[table]) {
-              self.mockUpdates[table] = [];
-            }
-            self.mockUpdates[table].push({ data, column, value });
-            // Apply update to mock data
-            self.mockData[table] = (self.mockData[table] || []).map((row) =>
-              row[column] === value ? { ...row, ...data } : row
-            );
-            return Promise.resolve({ data, error: null });
+            updateColumn = column;
+            updateValue = value;
+            return chainableUpdate; // Return self for chaining
           },
           is(column: string, value: any) {
+            // Apply the final update
             if (!self.mockUpdates[table]) {
               self.mockUpdates[table] = [];
             }
-            self.mockUpdates[table].push({ data, column, value, isNull: true });
+            self.mockUpdates[table].push({ data, column: updateColumn, value: updateValue, isNull: true });
             // Apply update to mock data
-            self.mockData[table] = (self.mockData[table] || []).map((row) =>
-              row[column] === value ? { ...row, ...data } : row
-            );
+            self.mockData[table] = (self.mockData[table] || []).map((row) => {
+              if (updateColumn && row[updateColumn] === updateValue && row[column] === value) {
+                return { ...row, ...data };
+              }
+              return row;
+            });
             return Promise.resolve({ data, error: null });
           },
+          then(resolve: any) {
+            // Apply update without is() filter
+            if (!self.mockUpdates[table]) {
+              self.mockUpdates[table] = [];
+            }
+            self.mockUpdates[table].push({ data, column: updateColumn, value: updateValue });
+            // Apply update to mock data
+            if (updateColumn !== null) {
+              self.mockData[table] = (self.mockData[table] || []).map((row) =>
+                row[updateColumn!] === updateValue ? { ...row, ...data } : row
+              );
+            }
+            resolve({ data, error: null });
+          },
         };
+        return chainableUpdate;
       },
     };
   }
