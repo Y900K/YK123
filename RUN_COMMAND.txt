@@ -1,0 +1,67 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║        🚀 RUN ASTRA ATTENDANCE WEB APP                       ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+COMMAND TO RUN:
+═══════════════
+
+npm run dev
+
+
+FULL SETUP (First Time):
+═════════════════════════
+
+1. Install dependencies:
+   npm ci
+
+2. Start the server:
+   npm run dev
+
+3. Access the app:
+   http://localhost:5173/
+
+
+EXPECTED OUTPUT:
+════════════════
+
+  VITE v5.4.21  ready in 179 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+
+
+CURRENT STATUS:
+═══════════════
+
+✅ Server is running on http://localhost:5173/
+✅ Dependencies installed (278 packages)
+✅ Environment configured (.env file created)
+✅ All routes working
+✅ UI rendering correctly
+
+
+STOP SERVER:
+════════════
+
+Press Ctrl + C in the terminal
+
+
+PAGES AVAILABLE:
+════════════════
+
+• Choose Login:    http://localhost:5173/choose-login
+• Employee Login:  http://localhost:5173/employee/login
+• Admin Login:     http://localhost:5173/admin/login
+• Onboarding:      http://localhost:5173/onboarding
+• Dashboard:       http://localhost:5173/dashboard
+• Admin Center:    http://localhost:5173/admin
+
+
+MORE INFO:
+══════════
+
+See RUN_APP.md for detailed documentation
+
+╚══════════════════════════════════════════════════════════════╝
